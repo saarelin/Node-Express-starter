@@ -33,3 +33,21 @@ exports.getPostById = async (req, res, next) => {
     res.status(200).json({ post: post[0] });
   } catch (error) {}
 };
+
+exports.updatePost = async (req, res, next) => {
+  try {
+    let postId = req.params.id;
+    let [post, _] = await Post.update(postId);
+
+    res.status(201).json({ post: post[0] });
+  } catch (error) {}
+};
+
+exports.deletePost = async (req, res, next) => {
+  try {
+    let postId = req.params.id;
+    let [post, _] = await Post.findById(postId);
+
+    res.status(200).json({ post: post[0] });
+  } catch (error) {}
+};

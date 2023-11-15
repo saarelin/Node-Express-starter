@@ -43,6 +43,14 @@ VALUES(
 
     return db.execute(sql);
   }
+
+  async update(id) {
+    let sql = `UPDATE posts SET ? WHERE id = ${id}`;
+
+    const [updatedPost, _] = await db.execute(sql);
+
+    return updatedPost;
+  }
 }
 
 module.exports = Post;
