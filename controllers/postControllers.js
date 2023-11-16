@@ -36,18 +36,24 @@ exports.getPostById = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   try {
-    let postId = req.params.id;
-    let [post, _] = await Post.update(postId);
-
-    res.status(201).json({ post: post[0] });
-  } catch (error) {}
+    let postId = Number(req.params.id);
+    let { title, body } = req.body;
+    let post = await Post.saveById(postId, title, body);
+    res.status(201).json({ message: "Post updated" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
-exports.deletePost = async (req, res, next) => {
+exports.deletePostById = async (req, res, next) => {
   try {
-    let postId = req.params.id;
-    let [post, _] = await Post.findById(postId);
+    let postId = Number(req.params.id);
 
-    res.status(200).json({ post: post[0] });
-  } catch (error) {}
+    let post = await Post.deleteById(postId);
+    res.status(201).json({ message: "Post deleted" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };

@@ -44,13 +44,14 @@ VALUES(
     return db.execute(sql);
   }
 
-  async update(id) {
-    let sql = `UPDATE posts SET ? WHERE id = ${id}`;
+  static saveById(id, title, body) {
+    let sql = `UPDATE posts SET title='${title}',body='${body}' WHERE id =${id}`;
+    return db.execute(sql);
+  }
 
-    const [updatedPost, _] = await db.execute(sql);
-
-    return updatedPost;
+  static deleteById(id) {
+    let sql = `DELETE FROM posts WHERE id =${id}`;
+    return db.execute(sql);
   }
 }
-
 module.exports = Post;
