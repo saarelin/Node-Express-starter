@@ -6,6 +6,29 @@ const app = express();
 // Middleware
 app.use(express.json()); // parse json bodies in the request object
 
+//CORS -määrittely
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Content-type", "application/json");
+
+  next();
+});
+
 // Redirect requests to endpoint starting with /posts to postRoutes.js
 app.use("/posts", require("./routes/postRoutes"));
 

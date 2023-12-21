@@ -46,7 +46,7 @@ exports.updatePost = async (req, res, next) => {
   }
 };
 
-exports.deletePostById = async (req, res, next) => {
+exports.deleteById = async (req, res, next) => {
   try {
     let postId = Number(req.params.id);
 
